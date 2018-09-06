@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -98,17 +97,11 @@ public class WebDriverBrowserFactory {
             System.out.print(verificationErrorString);
         }
 
-        Result result = JUnitCore.runClasses(TestListener.class);
+        @SuppressWarnings("unused")
+		Result result = JUnitCore.runClasses(TestListener.class);
         System.out.println("Completed Test Case " + className + " Date:  " + dateNow);
 
-        if (result.wasSuccessful())
-            System.out.println("Test run was successful");
-        else {
-            System.out.println("Test run was NOT successful: ");
-            for (Failure f: result.getFailures())
-                System.out.println(f.getMessage() + " - Trace: " + f.getTrace() + " - Exception: " +
-                    f.getException() + " - " + f.getException().getStackTrace());
-
+       
             File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             // Save the screenshot to a file some place
             try {
@@ -117,12 +110,11 @@ public class WebDriverBrowserFactory {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-
+            WebDriverBrowserFactory.driver.quit();
+            driver.quit();
         }
-        //WebDriverBrowserFactory.driver.quit();
-        //driver.quit();
-
-    }
+       
+    
     @Ignore
     public static void main(String[] args) {
         // TODO Auto-generated method stub

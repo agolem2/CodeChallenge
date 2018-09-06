@@ -1,10 +1,6 @@
 package utiity;
 
-import org.junit.Test;
-
 public class removechar {
-
-	@Test
 
 			   public void main(String args[]) {
 			      String str = "this is Java";
